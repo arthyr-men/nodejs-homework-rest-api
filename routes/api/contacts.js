@@ -1,5 +1,4 @@
 const express = require("express");
-const contactsCtrl = require("../../controllers/contacts.js");
 const {
   addValid,
   updateValid,
@@ -8,25 +7,40 @@ const {
 const isValidId = require("../../middlewares/isValidId");
 const authenticate = require("../../middlewares/authenticate");
 const userVerification = require("../../middlewares/userVerification");
+const contactsCtrl = require("../../controllers/contacts.js");
 
 const router = express.Router();
 
-// Перевірте, що contactsCtrl.listContactsForUser визначено правильно
-router.get("/", authenticate, contactsCtrl.listContactsForUser);
+router.get("/", authenticate, (req, res) => {
+  console.log("GET /contacts route hit");
+  contactsCtrl.listContactsForUser(req, res);
+});
 
-// Перевірте, що contactsCtrl.getContactById визначено правильно
-router.get("/:contactId", authenticate, isValidId, contactsCtrl.getContactById);
+router.get("/:contactId", authenticate, isValidId, (req, res) => {
+  console.log("GET /contacts/:contactId route hit");
+  contactsCtrl.getContactById(req, res);
+});
 
-// Перевірте, що contactsCtrl.addContact визначено правильно
-router.post("/", authenticate, addValid, contactsCtrl.addContact);
+router.post("/", authenticate, addValid, (req, res) => {
+  console.log("POST /contacts route hit");
+  contactsCtrl.addContact(req, res);
+});
 
-// Перевірте, що contactsCtrl.removeContact визначено правильно
-router.delete("/:contactId", authenticate, userVerification, isValidId, contactsCtrl.removeContact);
+router.delete("/:contactId", authenticate, userVerification, isValidId, (req, res) => {
+  console.log("DELETE /contacts/:contactId route hit");
+  contactsCtrl.removeContact(req, res);
+});
 
-// Перевірте, що contactsCtrl.updateContact визначено правильно
-router.put("/:contactId", authenticate, userVerification, isValidId, updateValid, contactsCtrl.updateContact);
+router.put("/:contactId", authenticate, userVerification, isValidId, updateValid, (req, res) => {
+  console.log("PUT /contacts/:contactId route hit");
+  contactsCtrl.updateContact(req, res);
+});
 
-// Перевірте, що contactsCtrl.updateStatusContact визначено правильно
-router.patch("/:contactId/favorite", authenticate, userVerification, isValidId, updateFavoriteValid, contactsCtrl.updateStatusContact);
+router.patch("/:contactId/favorite", authenticate, userVerification, isValidId, updateFavoriteValid, (req, res) => {
+  console.log("PATCH /contacts/:contactId/favorite route hit");
+  contactsCtrl.updateStatusContact(req, res);
+});
 
 module.exports = router;
+
+
