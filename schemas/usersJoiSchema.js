@@ -4,7 +4,6 @@ const registerSchema = Joi.object({
   name: Joi.string(),
   email: Joi.string().required(),
   password: Joi.string().min(6).required(),
-
 });
 
 const loginSchema = Joi.object({
@@ -17,7 +16,11 @@ const updateSubsSchema = Joi.object({
 });
 
 const updateAvatarSchema = Joi.object({
-  avatarURL: Joi.any().required()
+  avatarURL: Joi.any().required(),
+});
+
+const resendVerify = Joi.object({
+  email: Joi.string().required(),
 });
 
 const usersJoiSchema = {
@@ -25,6 +28,7 @@ const usersJoiSchema = {
   loginSchema,
   updateSubsSchema,
   updateAvatarSchema,
+  resendVerify,
 };
 
 module.exports = usersJoiSchema;

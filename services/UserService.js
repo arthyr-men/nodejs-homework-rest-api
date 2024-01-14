@@ -21,8 +21,6 @@ class UserService {
       });
     return { name, email, subscription, token, avatarURL } || null;
   };
-
-  loginUser = async () => {};
 }
 
 module.exports = new UserService();
